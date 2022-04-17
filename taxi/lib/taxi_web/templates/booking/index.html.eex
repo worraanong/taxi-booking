@@ -1,0 +1,29 @@
+<h2>Booking</h2>
+<%= link "Book a Taxi", to: Routes.booking_path(@conn, :new), class: "button" %>  
+
+<table class="table">
+<thead>
+    <tr>
+    <th>Pick up</th>
+    <th>Drop off</th>
+    <th>Distance (km)</th>
+    <th>Status</th>
+    <th>Date</th>
+
+    <th></th>
+    </tr>
+</thead>
+<tbody>
+<%= for booking <- @bookings do %>
+    <tr>
+    <td><%= booking.pickup_address %></td>
+    <td><%= booking.dropoff_address %></td>
+    <td><%= booking.distance %></td>
+    <td><%= booking.status %></td>
+    <td><%= booking.inserted_at %></td>
+
+    <td class="text-right"><%= link "Show", to: Routes.booking_path(@conn, :show, booking), class: "button button-outline" %></td>
+    </tr>
+<% end %>
+</tbody>
+</table>

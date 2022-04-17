@@ -1,0 +1,34 @@
+<h2>Register</h2>
+<%= if @changeset.action do %>
+  <div class="alert alert-danger">
+    <p>Oops, something went wrong! Please check the errors below.</p>
+  </div>
+<% end %>
+
+<%= form_for @changeset, Routes.user_path(@conn, :create), fn user -> %>
+
+  <div class="form-group">
+    <%= label user, :fullname, class: "control-label" %>
+    <%= text_input user, :fullname, class: "form-control" %>
+    <%= error_tag user, :fullname %>
+  </div>
+  <div class="form-group">
+    <%= label user, :age, class: "control-label" %>
+    <%= number_input user, :age, class: "form-control", min: 0 %>
+    <%= error_tag user, :age %>
+  </div>
+  <div class="form-group">
+    <%= label user, :email, class: "control-label" %>
+    <%= email_input user, :email, class: "form-control" %>
+    <%= error_tag user, :email %>
+  </div>
+  <div class="form-group">
+    <%= label user, :password, class: "control-label" %>
+    <%= password_input user, :password, class: "form-control" %>
+    <%= error_tag user, :password %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

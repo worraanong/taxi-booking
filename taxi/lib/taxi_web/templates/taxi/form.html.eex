@@ -1,0 +1,35 @@
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= form_for @changeset, @action, fn taxi -> %>
+    <div class="form-group">
+      <%= label taxi, :location, class: "control-label" %>
+      <%= text_input taxi, :location, class: "form-control" %>
+      <%= error_tag taxi, :location %>
+    </div>
+
+    <%# for testing purpose, this field is automatically updated %>
+    <div class="form-group" hidden>
+      <%= label taxi, :status, class: "control-label" %>
+      <%= select taxi, :status, ["AVAILABLE": "AVAILABLE", "BUSY": "BUSY"], class: "form-control" %>
+      <%= error_tag taxi, :status %>
+    </div>
+    
+    <div class="form-group">
+      <%= label taxi, :total_seat, class: "control-label" %>
+      <%= number_input taxi, :total_seat, class: "form-control", min: "0" %>
+      <%= error_tag taxi, :total_seat %>
+    </div>
+    <div class="form-group">
+      <%= label taxi, :cost_per_kilo, class: "control-label" %>
+      <%= number_input taxi, :cost_per_kilo, class: "form-control", min: "0", step: "0.1" %>
+      <%= error_tag taxi, :cost_per_kilo %>
+    </div>
+
+    <div class="form-group">
+      <%= submit "Submit", class: "btn btn-primary" %>
+    </div>
+  <% end %>

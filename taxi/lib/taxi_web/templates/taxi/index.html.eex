@@ -1,0 +1,59 @@
+<h2>Manage Taxi</h2>
+<%= if @taxi == nil do %>
+    <%= link "Become a driver", to: Routes.taxi_path(@conn, :new), class: "button" %>  
+<% else %>
+    <%= if @rideToComplete do %>
+        <table class="table">
+            <caption>Current ride</caption>
+            <thead>
+                <tr>
+                <th>Pick up</th>
+                <th>Drop off</th>
+                <th>Distance (km)</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td><%= @rideToComplete.pickup_address %></td>
+                <td><%= @rideToComplete.dropoff_address %></td>
+                <td><%= @rideToComplete.distance %></td>
+                <td><%= @rideToComplete.user.fullname %></td>
+                <td><%= @rideToComplete.inserted_at %></td>
+                <td><%= link "Complete ride", to: Routes.taxi_path(@conn, :completeRide, @taxi), class: "button" %>  </td>
+                </tr>
+            </tbody>
+        </table>
+    <% end %>
+
+    <table class="table">
+        <caption>History</<caption>
+        <thead>
+            <tr>
+            <th>Pick up</th>
+            <th>Drop off</th>
+            <th>Distance (km)</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <%= for booking <- @bookings do %>
+            <tr>
+            <td><%= booking.pickup_address %></td>
+            <td><%= booking.dropoff_address %></td>
+            <td><%= booking.distance %></td>
+            <td><%= booking.user.fullname %></td>
+            <td><%= booking.inserted_at %></td>
+            <td class="text-right"><%= link "Show", to: Routes.booking_path(@conn, :show, booking), class: "button button-outline" %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+
+    <br/><%= link "Edit Taxi detail", to: Routes.taxi_path(@conn, :edit, @taxi), class: "button" %>  
+    <br/><%= button "Unregister as a driver", to: Routes.taxi_path(@conn, :delete, @taxi), method: :delete, data: [confirm: "Are you sure?"], class: "alert-danger" %>  
+<% end %>

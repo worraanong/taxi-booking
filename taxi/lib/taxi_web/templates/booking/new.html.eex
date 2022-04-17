@@ -1,0 +1,37 @@
+<%= if @conn.assigns.current_user do %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+  <h2>Create booking</h2>
+  <%= form_for @changeset, Routes.booking_path(@conn, :create), fn booking -> %>
+    <div class="form-group">
+      <%= label booking, :pickup_address, class: "control-label" %>
+      <%= text_input booking, :pickup_address, class: "form-control", id: "pickup_address" %>
+      <%= error_tag booking, :pickup_address %>
+    </div>
+    <div class="form-group">
+      <%= label booking, :dropoff_address, class: "control-label" %>
+      <%= text_input booking, :dropoff_address, class: "form-control", id: "dropoff_address" %>
+      <%= error_tag booking, :dropoff_address %>
+    </div>
+    <div class="form-group">
+      <%= label booking, :distance, class: "control-label" %>
+      <small>Estimated distance of the entire journey in kilometer</small>
+      <%= number_input booking, :distance, class: "form-control", step: "0.1", min: "0", id: "distance", value: "1" %>
+      <%= error_tag booking, :distance %>
+    </div>
+
+    <div class="form-group">
+      <%= hidden_input booking, :status, class: "form-control", id: "status", value: "OPEN"  %>
+    </div>
+
+    <div class="form-group">
+      <%= submit "Submit", class: "btn btn-primary", id: "submit_button" %>
+    </div>
+  <% end %>
+  
+<% else %>
+  Please log in before proceed to book your Taxi 
+<% end %>

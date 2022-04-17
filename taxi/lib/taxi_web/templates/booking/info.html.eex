@@ -1,0 +1,37 @@
+<h2>Booking details</h2>
+
+<div class="form-group">
+    <%= label @booking, :pickup_address, class: "control-label" %>
+    <%= @booking.pickup_address %>
+</div>
+<div class="form-group">
+    <%= label @booking, :dropoff_address, class: "control-label" %>
+    <%= @booking.dropoff_address %>
+</div>
+<div class="form-group">
+    <%= label @booking, :distance, class: "control-label" %>
+    <%= @booking.distance %> kilometer(s)
+</div>
+
+<%= if @taxi != nil do %>
+    <div class="form-group">
+        <label class="control-label"%>Driver</label>
+        <% if @taxi.user != nil, do: @taxi.user.fullname %>
+    </div>
+    <div class="form-group">
+        <%= label @booking, :location, class: "control-label" %>
+        <%= @taxi.location %> 
+    </div>
+    <div class="form-group">
+        <%= label @booking, :total_seat, class: "control-label" %>
+        <%= @taxi.total_seat %> seat(s)
+    </div>
+    <div class="form-group">
+        <%= label @booking, :cost_per_kilo, class: "control-label" %>
+        <%= @taxi.cost_per_kilo %> per kilometer
+    </div>
+
+    <div class="form-group">
+        <h2>Price <%= Decimal.mult(Decimal.new(@taxi.cost_per_kilo), Decimal.new(@booking.distance)) %> £</h2> 
+    </div>
+<% end %>

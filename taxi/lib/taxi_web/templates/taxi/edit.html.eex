@@ -1,0 +1,4 @@
+<h2>Edit Taxi details</h2>
+
+<%=render "form.html", changeset: @changeset,
+                        action: Routes.taxi_path(@conn, :update, @taxi) %>
